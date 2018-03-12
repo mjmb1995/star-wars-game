@@ -16,3 +16,12 @@ img {
 .hidden {
 	display: none;
 }
+
+button{
+	width: 100%;
+	margin-top: 10%;
+}
+
+#results {
+	border: 2px solid green;
+}

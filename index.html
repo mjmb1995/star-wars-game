@@ -20,86 +20,104 @@
 		<div class="col-md-10">
 			<h2 >Select your Hero</h2>
 			<div class="row">
-				<div class="col-md-2 characters" data-val="luke">
+				<div class="col-md-3 characters" data-val="luke">
 					<h5>Luke Skywalker</h5>
 					<img src="assets/images/luke.jpeg" class="characterImg" >
-					<h5>Health: <span id="lukeHp">100</span></h5>
+					<h5>Health: <span id="lukeHp">350</span></h5>
 				</div>
 
-				<div class="col-md-2 characters" data-val="obi">
+				<div class="col-md-3 characters" data-val="obi">
 					<h5>Obi-Wan Kenobi</h5>
 					<img src="assets/images/obi.jpeg" class="characterImg">
-					<h5>Health: <span id="obiHp">120</span></h5>
+					<h5>Health: <span id="obiHp">400</span></h5>
 				</div>
 
 
-				<div class="col-md-2 characters" data-val="maul">
+				<div class="col-md-3 characters" data-val="maul">
 					<h5>Darth Maul</h5>
 					<img src="assets/images/maul.jpg" class="characterImg">
-					<h5>Health: <span id="maulHp">180</span></h5>
+					<h5>Health: <span id="maulHp">500</span></h5>
 				</div>
 
-				<div class="col-md-2 characters" data-val="sidious">
+				<div class="col-md-3 characters" data-val="sidious">
 					<h5>Darth Sidious</h5>
 					<img src="assets/images/sidious.jpeg" class="characterImg">
-					<h5>Health: <span id="sidiousHp">150</span></h5>
+					<h5>Health: <span id="sidiousHp">450</span></h5>
 				</div>	
 			</div>
 		</div>
 	</section>
-
 	
 	<section class="row">
 		<div class="col-md-1"></div>
 		<!--Active Hero Section -->
-		<div class="col-md-5">
+		<section class="col-md-4">
 			<h3>Your Hero</h3>
-			<div class="col-md-3"></div>
+			<div class="col-md-3">
+				<!-- Actions available when there is an active enemy -->
+				<div class="hidden" id="heroActions">
+					<h4>Actions</h4>
+					<button class="btn-danger" id="attack">Attack</button>
+					<button class="btn-success">Block</button>
+				</div>
+			</div>
 			<div class="col-md-6 characters heroVer hidden" id="lukeHero">
 				<h5>Luke Skywalker</h5>
 				<img src="assets/images/luke.jpeg">
-				<h5>Health: <span id="lukeHp">100</span></h5>
+				<h5>Health: <span class="lukeHealth"></span></h5>
 			</div>
 			<div class="col-md-6 characters heroVer hidden" id="obiHero">
 				<h5>Obi-Wan Kenobi</h5>
 				<img src="assets/images/obi.jpeg">
-				<h5>Health: <span id="obiHp">120</span></h5>
+				<h5>Health: <span class="obiHealth"></span></h5>
 			</div>
 			<div class="col-md-6 characters heroVer hidden" id="maulHero">
 				<h5>Darth Maul</h5>
 				<img src="assets/images/maul.jpg">
-				<h5>Health: <span id="maulHp">180</span></h5>
+				<h5>Health: <span class="maulHealth"></span></h5>
 			</div>
 			<div class="col-md-6 characters heroVer hidden" id="sidiousHero">
 				<h5>Darth Sidious</h5>
 				<img src="assets/images/sidious.jpeg">
-				<h5>Health: <span id="sidiousHp">150</span></h5>
+				<h5>Health: <span class="sidiousHealth"></span></h5>
 			</div>	
-		</div>
+		</section>
 		
+		<section class="col-md-2">
+			<div id="results" class="hidden">
+				<h4>Turn Results:</h4>
+				<h6 id="heroAction"></h6>
+				<h6 id="enemyAction"></h6>
+				<h6 id="heroResult"></h6>
+				<h6 id="enemyResult"></h6>
+
+			</div>
+			
+		</section>
+
 		<!-- Active Enemy Section -->
-		<section class="col-md-5">
+		<section class="col-md-4">
 			<h3>Current Engaged Enemy</h3>
 			<div class="col-md-3"></div>
 			<div class="col-md-6 characters currentEnemy hidden" id="lukeBattle">
 				<h5>Luke Skywalker</h5>
 				<img src="assets/images/luke.jpeg">
-				<h5>Health: <span id="lukeHp">100</span></h5>
+				<h5>Health: <span class="lukeHealth"></span></h5>
 			</div>
 			<div class="col-md-6 characters currentEnemy hidden" id="obiBattle">
 				<h5>Obi-Wan Kenobi</h5>
 				<img src="assets/images/obi.jpeg">
-				<h5>Health: <span id="obiHp">120</span></h5>
+				<h5>Health: <span class="obiHealth"></span></h5>
 			</div>
 			<div class="col-md-6 characters currentEnemy hidden" id="maulBattle">
 				<h5>Darth Maul</h5>
 				<img src="assets/images/maul.jpg">
-				<h5>Health: <span id="maulHp">180</span></h5>
+				<h5>Health: <span class="maulHealth"></span></h5>
 			</div>
 			<div class="col-md-6 characters currentEnemy hidden" id="sidiousBattle">
 				<h5>Darth Sidious</h5>
 				<img src="assets/images/sidious.jpeg">
-				<h5>Health: <span id="sidiousHp">150</span></h5>
+				<h5>Health: <span class="sidiousHealth"></span></h5>
 			</div>
 		</section>	
 
@@ -112,23 +130,23 @@
 			<div class="col-md-2 characters enemyVer hidden" id="lukeEnemy" data-val="luke">
 				<h5>Luke Skywalker</h5>
 				<img src="assets/images/luke.jpeg">
-				<h5>Health: <span id="lukeHp">100</span></h5>
+				<h5>Health: <span id="lukeHp">350</span></h5>
 			</div>
 
 			<div class="col-md-2 characters enemyVer hidden" id="obiEnemy" data-val="obi">
 				<h5>Obi-Wan Kenobi</h5>
 				<img src="assets/images/obi.jpeg">
-				<h5>Health: <span id="obiHp">120</span></h5>
+				<h5>Health: <span id="obiHp">400</span></h5>
 			</div>
 			<div class="col-md-2 characters enemyVer hidden" id="maulEnemy" data-val="maul">
 				<h5>Darth Maul</h5>
 				<img src="assets/images/maul.jpg">
-				<h5>Health: <span id="maulHp">180</span></h5>
+				<h5>Health: <span id="maulHp">500</span></h5>
 			</div>
 			<div class="col-md-2 characters enemyVer hidden" id="sidiousEnemy" data-val="sidious">
 				<h5>Darth Sidious</h5>
 				<img src="assets/images/sidious.jpeg">
-				<h5>Health: <span id="sidiousHp">150</span></h5>
+				<h5>Health: <span id="sidiousHp">450</span></h5>
 			</div>	
 
 	</section>
