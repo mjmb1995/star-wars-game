@@ -2,11 +2,17 @@ body {
 	background-image: url("../images/background.jpg");
 	color: white;
 }
+
 img {
 	width: 150px;
 	height: 150px;
 }
+
 .characters {
 	border: 2px solid green;
 	padding: 0;
+}
+
+.hidden {
+	display: none;
 }
