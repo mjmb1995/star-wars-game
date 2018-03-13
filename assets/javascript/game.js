@@ -37,7 +37,7 @@ $(document).ready(function(){
 
 			$(".enemyVer").removeClass("hidden");
 			$("#" + heroName + "Enemy").addClass("hidden");
-
+			$(".gameSection").removeClass("hidden");
 			$("#heroSelect").addClass("hidden");
 		}
 	});
@@ -76,11 +76,13 @@ $(document).ready(function(){
 	function revealActions(){
 		$("#heroActions").removeClass("hidden");
 		$("#results").removeClass("hidden");
+		$("#reset").removeClass("hidden");
 	}
 
 	function hideActions(){
 		$("#heroActions").addClass("hidden");
-		("#results").addClass("hidden");
+		$("#results").addClass("hidden");
+		$("#reset").addClass("hidden");
 	}
 
 	function randAttackBlock(){
@@ -169,6 +171,30 @@ $(document).ready(function(){
 		$("#enemyAction").empty();
 	}
 
-	
+	$("#reset").on("click", function(){
+		gameReset();
+	})
 
+	function gameReset(){
+		$("#heroActions").addClass("hidden");
+		$(".enemyVer").addClass("hidden");
+		hideActions();
+		$("#" + heroName + "Hero").addClass("hidden");
+		$("#" + enemyName + "Battle").addClass("hidden");
+		$("#heroSelect").removeClass("hidden");
+		$(".gameSection").addClass("hidden");
+
+		heroChosen = false;
+		heroDead = true;
+		enemyChosen = false;
+		enemyDead = true;
+
+		heroName = "";
+		heroHealth = 0;
+
+		enemyName = "";
+		enemyHealth = 0;
+
+		defeatedEnemy = 0;
+	}
 })

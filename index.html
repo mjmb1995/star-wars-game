@@ -52,7 +52,7 @@
 		<div class="col-md-1"></div>
 		<!--Active Hero Section -->
 		<section class="col-md-4">
-			<h3>Your Hero</h3>
+			<h3 class="gameSection hidden">Your Hero</h3>
 			<div class="col-md-3">
 				<!-- Actions available when there is an active enemy -->
 				<div class="hidden" id="heroActions">
@@ -90,14 +90,13 @@
 				<h6 id="enemyAction"></h6>
 				<h6 id="heroResult"></h6>
 				<h6 id="enemyResult"></h6>
-
 			</div>
-			
+			<button class="btn-warning hidden" id="reset">Reset Game</button>
 		</section>
 
 		<!-- Active Enemy Section -->
 		<section class="col-md-4">
-			<h3>Current Engaged Enemy</h3>
+			<h3 class="gameSection hidden">Current Engaged Enemy</h3>
 			<div class="col-md-3"></div>
 			<div class="col-md-6 characters currentEnemy hidden" id="lukeBattle">
 				<h5>Luke Skywalker</h5>
@@ -125,7 +124,7 @@
 
 	<!-- Enemies to attack -->
 	<section class="row">
-		<h3>Enemies waiting to Attack</h3>
+		<h3 class="gameSection hidden">Enemies waiting to Attack</h3>
 			<div class="col-md-4"></div>
 			<div class="col-md-2 characters enemyVer hidden" id="lukeEnemy" data-val="luke">
 				<h5>Luke Skywalker</h5>
