@@ -2,6 +2,7 @@ $(document).ready(function(){
 	"use strict";
 
 	var heroChosen = false;
+	var heroDead = true;
 	var enemyChosen = false;
 	var enemyDead = true;
 
@@ -11,9 +12,14 @@ $(document).ready(function(){
 	var enemyName;
 	var enemyHealth;
 
+	var defeatedEnemy = 0;
+
+	
+
 	$(".characters").on("click", function(){
 		if (!heroChosen) {
 			heroChosen = true;
+			heroDead = false;
 
 			heroName = $(this).data("val");
 			$("#" + heroName + "Hero").removeClass("hidden");
@@ -37,8 +43,9 @@ $(document).ready(function(){
 	});
 
 	$(".enemyVer").on("click", function(){
-		if (heroChosen && !enemyChosen && enemyDead) {
+		if (heroChosen && !heroDead && !enemyChosen && enemyDead) {
 			enemyChosen = true;
+			enemyDead = false;
 
 			enemyName = $(this).data("val");
 			
@@ -53,14 +60,15 @@ $(document).ready(function(){
 			} else {
 				enemyHealth = 450;
 			}
-			console.log(enemyHealth);
-			console.log(enemyName);
-			// DOM wont take enemyHealth changes
+			
+
 			$("." + enemyName + "Health").html(enemyHealth);
-			console.log($("#" + enemyName + "Health"))
 
 			$("#" + enemyName + "Battle").removeClass("hidden");
 			revealActions();
+			$("#heroAction").empty();
+
+			$("#enemyAction").html("Your Hero is waiting for your orders.");
 
 		}
 	})
@@ -84,29 +92,83 @@ $(document).ready(function(){
 	}
 
 	$("#attack").on("click", function(){
-		var heroAttack = randAttackBlock();
-		var enemyAction = enemyAttackBlock();
-		$("#heroAction").html(heroName + " attacked for " + heroAttack + " points of damage.");
-
-		if (enemyAction === 1){
-			var enemyAttack = randAttackBlock();
-			$("#enemyAction").html(enemyName + " attacked for " + enemyAttack + " points of damage.");
-
-			heroHealth -= enemyAttack;
-			enemyHealth -= heroAttack;
-			$("." + heroName + "Health").html(heroHealth);
+		if(!heroDead && !enemyDead){
+			var heroAttack = randAttackBlock();
+		
+			$("#heroAction").html(heroName + " attacked for " + heroAttack + " points of damage.");
 			
+			var enemyAction = enemyAttackBlock();
+			if (enemyAction === 1){
+				var enemyAttack = randAttackBlock();
+				$("#enemyAction").html(enemyName + " attacked for " + enemyAttack + " points of damage.");
 
-		} else {
-			var enemyBlock = randAttackBlock();
-			$("#enemyAction").html(enemyName + " blocked reducing damage by " + enemyBlock);
-			if (heroAttack > enemyBlock){
-				enemyHealth -= (heroAttack - enemyBlock);
+				heroHealth -= enemyAttack;
+				enemyHealth -= heroAttack;
+				$("." + heroName + "Health").html(heroHealth);
+				
+
+			} else {
+				var enemyBlock = randAttackBlock();
+				$("#enemyAction").html(enemyName + " blocked reducing damage by " + enemyBlock);
+				if (heroAttack > enemyBlock){
+					enemyHealth -= (heroAttack - enemyBlock);
+				}
 			}
-			
+			$("." + enemyName + "Health").html(enemyHealth);
+
+			if(heroHealth > 0 && enemyHealth <= 0 && defeatedEnemy < 3){
+				enemyLost();
+			} else if (heroHealth <= 0){
+				heroLost();
+			}
+
+			if (heroHealth > 0 && enemyHealth <= 0 && defeatedEnemy === 3){
+				$("#heroAction").html("You have defeated everyone standing in your way. You rule the galaxy.");
+				$("#enemyAction").empty();
+			}
+
 
 		}
-		$("." + enemyName + "Health").html(enemyHealth);
+	});
 
+	$("#block").on("click", function(){
+		if(!heroDead && !enemyDead){
+			var heroBlock = randAttackBlock();
+			
+			$("#heroAction").html(heroName + " blocked reducing damage by " + heroBlock);
+			var enemyAction = enemyAttackBlock();
+			if (enemyAction === 1){
+				var enemyAttack = randAttackBlock();
+				$("#enemyAction").html(enemyName + " attacked for " + enemyAttack + " points of damage.");
+
+				if (enemyAttack > heroBlock){
+					heroHealth -= (enemyAttack - heroBlock);
+				}
+				
+			} else {
+				$("#enemyAction").html("Both characters blocked. Nothing happened.");
+				$("#heroAction").empty();
+			}
+		}
 	})
+
+	function enemyLost(){
+		$("#heroAction").html("You have defeated your opponent. Select your next enemy.");
+		// clears results
+		$("#enemyAction").empty();
+		$("#" + enemyName + "Battle").addClass("hidden");
+		enemyChosen = false;
+		enemyDead = true;
+		defeatedEnemy++;
+	}
+
+	function heroLost(){
+		heroDead = true;
+		$("#heroAction").html("You were defeated. The galaxy is in chaos..");
+		// clears results
+		$("#enemyAction").empty();
+	}
+
+	
+
 })
